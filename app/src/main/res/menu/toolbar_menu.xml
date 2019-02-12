@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/toolbar_like_fail"
+        android:icon="@drawable/ic_nav_like_fail"
+        android:title="收藏"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/toolbar_like_success"
+        android:icon="@drawable/ic_nav_like_success"
+        android:title="收藏"/>
+    <item
+        android:id="@+id/toolbar_share"
+        android:icon="@drawable/ic_share"
+        android:title="分享" />
+    <item
+        android:id="@+id/toolbar_before"
+        android:icon="@drawable/ic_before"
+        android:title="前一天" />
+    <item
+        android:id="@+id/toolbar_later"
+        android:icon="@drawable/ic_later"
+        android:title="后一天" />
+    <item
+        android:id="@+id/toolbar_today"
+        android:icon="@drawable/ic_today"
+        android:title="今日" />
+</menu>
