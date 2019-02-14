@@ -15,25 +15,32 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"/>
-        <ScrollView
-            android:id="@+id/article_layout"
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:scrollbars="none"
-            android:overScrollMode="never">
-            <LinearLayout
-                android:orientation="vertical"
+            android:layout_height="match_parent">
+            <ScrollView
+                android:id="@+id/article_layout"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <include layout="@layout/title" />
-                <include layout="@layout/content" />
-                <include layout="@layout/end" />
-            </LinearLayout>
-        </ScrollView>
-        <ProgressBar
-            android:id="@+id/progress_bar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+                android:layout_height="match_parent"
+                android:scrollbars="none"
+                android:overScrollMode="never">
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <include layout="@layout/title" />
+                    <include layout="@layout/content" />
+                    <include layout="@layout/end" />
+                </LinearLayout>
+            </ScrollView>
+            <ProgressBar
+                android:id="@+id/progress_bar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:visibility="gone"
+                />
+        </FrameLayout>
     </LinearLayout>
     <android.support.design.widget.NavigationView
         android:id="@+id/nav_view"

@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -22,6 +23,7 @@ import android.widget.Toast;
 import android.support.v7.widget.Toolbar;
 
 import com.example.q.myapplication2.R;
+import com.example.q.myapplication2.adapter.Article;
 import com.example.q.myapplication2.db.MyDatabaseHelper;
 import com.example.q.myapplication2.gson.Data;
 import com.example.q.myapplication2.gson.Date;
@@ -33,6 +35,8 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity2 extends AppCompatActivity {
     private TextView titleArticle;
@@ -78,9 +82,41 @@ public class MainActivity2 extends AppCompatActivity {
             }
         });
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        switch (requestCode) {
+            case 1:
+                if (resultCode == RESULT_OK) {
+                    String returnData = data.getStringExtra("data_return");
+                    sendRequestWithHttpURLConnection("https://interface.meiriyiwen.com/article/day?dev=1&date=" + returnData);
+                    mDrawerLayout.closeDrawer(GravityCompat.START);
+                }
+        }
+    }
+
     private void startIntent() {
         Intent intent = new Intent("com.example.activity.ACTION_START");
-        startActivity(intent);
+        intent.putParcelableArrayListExtra("article_list", getDatabaseInfo());
+        startActivityForResult(intent, 1);
+    }
+    //活动间传递数据
+    private ArrayList<Article> getDatabaseInfo() {
+        ArrayList<Article> articleList = new ArrayList<>();
+        SQLiteDatabase db = myDatabaseHelper.getWritableDatabase();
+        Cursor cursor = db.query("Article", null, null, null, null, null, null);
+        if (cursor.moveToFirst()) {
+            do {
+                String title = cursor.getString(cursor.getColumnIndex("title"));
+                String author = cursor.getString(cursor.getColumnIndex("author"));
+                String date = cursor.getString(cursor.getColumnIndex("curr"));
+                Article article = new Article(title, author, date);
+                articleList.add(article);
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+
+        return articleList;
     }
 //    //解决因折叠menu菜单无法显示icon的问题
 //    @Override
