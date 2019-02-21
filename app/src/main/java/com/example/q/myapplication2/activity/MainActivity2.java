@@ -90,7 +90,6 @@ public class MainActivity2 extends AppCompatActivity {
                 if (resultCode == RESULT_OK) {
                     String returnData = data.getStringExtra("data_return");
                     sendRequestWithHttpURLConnection("https://interface.meiriyiwen.com/article/day?dev=1&date=" + returnData);
-                    mDrawerLayout.closeDrawer(GravityCompat.START);
                 }
         }
     }
@@ -98,6 +97,7 @@ public class MainActivity2 extends AppCompatActivity {
     private void startIntent() {
         Intent intent = new Intent("com.example.activity.ACTION_START");
         intent.putParcelableArrayListExtra("article_list", getDatabaseInfo());
+        mDrawerLayout.closeDrawer(GravityCompat.START);
         startActivityForResult(intent, 1);
     }
     //活动间传递数据
