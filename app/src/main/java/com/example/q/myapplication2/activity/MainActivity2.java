@@ -1,12 +1,17 @@
 package com.example.q.myapplication2.activity;
 
+import android.Manifest;
 import android.content.ContentValues;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
@@ -38,6 +43,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 public class MainActivity2 extends AppCompatActivity {
     private TextView titleArticle;
     private TextView titleAuthor;
@@ -49,6 +56,7 @@ public class MainActivity2 extends AppCompatActivity {
     private String address;
     private MenuItem like;
     private ProgressBar bar;
+    CircleImageView circleImageView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,6 +71,20 @@ public class MainActivity2 extends AppCompatActivity {
         }
         myDatabaseHelper = new MyDatabaseHelper(this, "Article.db", null, 1);
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        View headerView = navigationView.getHeaderView(0);
+        circleImageView = headerView.findViewById(R.id.nav_icon);
+        circleImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (ContextCompat.checkSelfPermission(MainActivity2.this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                    ActivityCompat.requestPermissions(MainActivity2.this, new String[]{ Manifest.permission.READ_EXTERNAL_STORAGE }, 1);
+                } else {
+                    startPhoto();
+                }
+
+            }
+        });
+
         titleArticle = findViewById(R.id.title_article);
         titleAuthor = findViewById(R.id.title_author);
         contentTV = findViewById(R.id.content_tv);
@@ -82,6 +104,27 @@ public class MainActivity2 extends AppCompatActivity {
             }
         });
     }
+    private void startPhoto() {
+        Intent intent = new Intent();
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        intent.setType("image/*");
+        startActivityForResult(intent, 400);
+    }
+
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        switch (requestCode) {
+            case 1:
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    startPhoto();
+                } else {
+                    Toast.makeText(this, "You denied the permission", Toast.LENGTH_SHORT).show();
+                }
+                break;
+            default:
+        }
+    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
@@ -91,6 +134,11 @@ public class MainActivity2 extends AppCompatActivity {
                     String returnData = data.getStringExtra("data_return");
                     sendRequestWithHttpURLConnection("https://interface.meiriyiwen.com/article/day?dev=1&date=" + returnData);
                 }
+                break;
+            case 400:
+                Uri uri = data.getData();
+                circleImageView.setImageURI(uri);
+                break;
         }
     }
 
