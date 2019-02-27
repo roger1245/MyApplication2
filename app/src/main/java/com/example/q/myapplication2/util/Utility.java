@@ -1,12 +1,8 @@
 package com.example.q.myapplication2.util;
 
-import android.text.TextUtils;
-import android.util.Log;
-
 import com.example.q.myapplication2.gson.Data;
 import com.google.gson.Gson;
 
-import org.json.JSONArray;
 import org.json.JSONObject;
 
 public class Utility {
