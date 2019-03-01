@@ -1,5 +1,7 @@
 # OneArticle
 myapplication2 <br>
+## 3月1日更新：<br>
+1.添加了知乎日报的一个API，采用recyclerview + cardview
 ## 一.功能<br>
 1.使用了SQLite数据库，用以实现收藏功能<br>
 2.实现了oneArticle提供的所有API，gson解析 [网址](https://github.com/jokermonn/-Api/blob/master/OneArticle.md)<br>
