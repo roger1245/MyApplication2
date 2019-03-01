@@ -15,6 +15,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".activity.ZhuHuActivity"></activity>
         <activity
             android:name=".activity.MainActivity2"
             android:label="每日一文">
@@ -33,9 +34,10 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
+
         <provider
-            android:authorities="com.example.q.myapplication2.fileprovider"
             android:name="android.support.v4.content.FileProvider"
+            android:authorities="com.example.q.myapplication2.fileprovider"
             android:exported="false"
             android:grantUriPermissions="true">
             <meta-data

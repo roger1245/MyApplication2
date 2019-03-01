@@ -1,6 +1,7 @@
 package com.example.q.myapplication2.util;
 
 import com.example.q.myapplication2.gson.Data;
+import com.example.q.myapplication2.gson.DataOfZhuHu;
 import com.google.gson.Gson;
 
 import org.json.JSONObject;
@@ -16,6 +17,14 @@ public class Utility {
             } catch (Exception e) {
                 e.printStackTrace();
             }
+        return null;
+    }
+    public static DataOfZhuHu handleResponseOfZhiHu(String response) {
+        try {
+            return new Gson().fromJson(response, DataOfZhuHu.class);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         return null;
     }
 }

@@ -116,11 +116,18 @@ public class MainActivity2 extends AppCompatActivity {
                     case R.id.nav_like:
                         startIntent();
                         break;
+                    case R.id.zhihu:
+                        startIntentOfZhiHu();
+                        break;
                     default:
                 }
                 return true;
             }
         });
+    }
+    private void startIntentOfZhiHu() {
+        Intent intent = new Intent(MainActivity2.this, ZhuHuActivity.class);
+        startActivity(intent);
     }
     //调用系统相机拍照，并返回图片
     private void takePhoto() {

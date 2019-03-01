@@ -2,6 +2,9 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <group android:checkableBehavior="single">
         <item
+            android:id="@+id/zhihu"
+            android:title="知乎" />
+        <item
             android:id="@+id/nav_like"
             android:icon="@drawable/ic_nav_collection"
             android:title="收藏"/>
